@@ -199,3 +199,20 @@ https://pjreddie.com/yolo/.
 ### YOEO — You Only Encode Once
 
 [YOEO](https://github.com/bit-bots/YOEO) extends this repo with the ability to train an additional semantic segmentation decoder. The lightweight example model is mainly targeted towards embedded real-time applications.
+import cv2
+from pytorchyolo import detect, models
+
+# Ensure we are in the project root directory
+%cd /content/PyTorch-YOLOv3/
+
+# Load YOLOv3 model using absolute paths
+model = models.load_model("/content/PyTorch-YOLOv3/config/yolov3.cfg", "/content/PyTorch-YOLOv3/weights/yolov3.weights")
+
+# Load a sample image from the data/samples folder
+img = cv2.imread("/content/PyTorch-YOLOv3/data/samples/dog.jpg")
+img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+
+# Run detection
+boxes = detect.detect_image(model, img)
+
+print(boxes)
